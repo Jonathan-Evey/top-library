@@ -1,0 +1,213 @@
+/*------------------------------
+--------   JS Classes   --------
+------------------------------*/
+
+.hidden {
+    display: none;
+}
+
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'PT Serif', serif;
+    background-color: rgb(225, 225, 225);
+}
+
+.header-title {
+    font-size: 1.2em;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.card-book-by {
+    font-size: .75rem;
+}
+
+.card-author {
+    font-size: 1.1rem;
+}
+
+.read-unread-btn {
+    font-size: 1rem;
+    font-family: 'PT Serif', serif;
+}
+
+header {
+    font-family: 'Abril Fatface', cursive;
+    background-color: rgb(0, 0, 0);
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2em 4em;
+    color: white;
+}
+
+main {
+    display: grid;
+    place-items: center;
+}
+
+.card-container {
+    display: grid;
+    padding: 25px;
+}
+
+.card {
+    width: 175px;
+    height: 250px;
+}
+
+.card-content {
+    width: 175px;
+    height: 250px;
+    position: relative;
+    text-align: center;
+    transition: transform 2s;
+    transform-style: preserve-3d;
+}
+
+.card:hover .card-content {
+    transform: rotateY(0.5turn);
+}
+
+.card-front,
+.card-back {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 0.5rem;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    background-color: brown;
+    background-size: cover;
+    width: 175px;
+    height: 250px;
+}
+
+.card-front {
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+    justify-content: flex-start;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: inset 10px 0px rgba(0,0,0, .9);
+}
+
+.card-front.read::after{
+    content: "";
+    position: absolute;
+    bottom: -36px;
+    left: 13px;
+    border-top: 15px solid black;
+    border-right: 15px solid black;
+    border-left: 15px solid black;
+    border-bottom: 15px solid transparent;
+    border-width: 18px 10px;
+}
+
+.card-title {
+    transform: translateZ(1.5rem)
+}
+
+.card-book-by,
+.card-author {
+    transform: translateZ(1rem);
+}
+
+.card-back-top-container,
+.card-pages-container {
+    transform: translateZ(1rem);
+}
+
+.card-back {
+    transform: rotateY(0.5turn);
+    justify-content: space-between;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: inset -10px 0px rgba(0,0,0, .9);
+}
+
+.card-back.read::after{
+    content: "";
+    position: absolute;
+    bottom: -36px;
+    right: 13px;
+    border-top: 15px solid black;
+    border-right: 15px solid black;
+    border-left: 15px solid black;
+    border-bottom: 15px solid transparent;
+    border-width: 18px 10px;
+}
+
+.card-back-top-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.remove-book-btn {
+    padding: .15rem .35rem;
+    margin-right: 10px;
+    flex-grow: 0;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: transparent;
+    align-self: flex-end;
+}
+
+.remove-book-btn:hover {
+    cursor: pointer;
+}
+
+.read-unread-btn {
+    margin: .5rem auto;
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: .1rem  .75rem;
+}
+
+.read-unread-btn:hover {
+    cursor: pointer;
+}
+
+.card-pages-container {
+    margin: 0 auto;
+    padding-bottom: 1rem;
+    display: flex;
+}
+.card-pages {
+    padding-right: 0.5rem;
+}
+
+@media (min-width: 1300px) {
+    body {
+        display: flex;
+    }
+    header {
+        height: 100vh;
+        width: 250px;
+    }
+
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 3em;
+    }
+}
