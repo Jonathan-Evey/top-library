@@ -20,8 +20,10 @@ body {
     background-color: rgb(225, 225, 225);
 }
 
-.header-title {
+.header-title,
+.add-book-btn {
     font-size: 1.2em;
+    font-family: inherit;
 }
 
 .card-title {
@@ -42,6 +44,21 @@ body {
     font-family: 'PT Serif', serif;
 }
 
+/*------------------------------
+--------  Popup Window  --------
+------------------------------*/
+
+.add-book-popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(0,0,0);
+    opacity: 0.6;
+}
+
 header {
     font-family: 'Abril Fatface', cursive;
     background-color: rgb(0, 0, 0);
@@ -52,6 +69,17 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 2em 4em;
+    color: white;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+}
+
+.add-book-btn {
+    margin-left: 2rem;
+    background-color: transparent;
     color: white;
 }
 
