@@ -1,5 +1,5 @@
 /*-----------------------------------
---------Add and Remove Books---------
+--------    Add New Books   ---------
 -----------------------------------*/
 const addBookBtn = document.getElementById('add-book-btn');
 const addBookPopup = document.getElementById('add-book-popup');
@@ -13,15 +13,39 @@ function addBook() {
 
 function closeAddBookPopup() {
     closeAddBook.addEventListener('click', () => {
-        console.log("click");
         addBookPopup.close();
     })
 }
 
+/*-----------------------------------
+---------   Remove Book    ----------
+-----------------------------------*/
 const removeBookBtn = document.getElementById('remove-book-btn');
-function deleteBook() {
+
+function getParentElement(removeBookBtn) {
+    divToDelete = removeBookBtn.closest('#single-card');
+    divToDelete.remove();
+}
+
+const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
+
+function confirmDelete(removeBookBtn) {
+    document.getElementById('delete-confirm-popup').style.display="block";
+    confirmDeleteBtn.onclick = () => {
+        getParentElement(removeBookBtn);
+        document.getElementById('delete-confirm-popup').style.display="none";
+        return;
+    }
+    cancelDeleteBtn.onclick = () => {
+        document.getElementById('delete-confirm-popup').style.display="none";
+        return;
+    }
+}
+
+function deleteBookBtnEvent() {
     removeBookBtn.addEventListener('click', () => {
-        console.log("Delete Book")
+        confirmDelete(removeBookBtn);
     })
 }
 
@@ -51,5 +75,5 @@ console.log(theHobbit.info());
 
 
 closeAddBookPopup();
-deleteBook();
+deleteBookBtnEvent();
 addBook();
