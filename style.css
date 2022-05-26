@@ -132,7 +132,7 @@ main {
     padding: 25px;
 }
 
-.card {
+.single-card {
     width: 175px;
     height: 250px;
 }
@@ -146,7 +146,7 @@ main {
     transform-style: preserve-3d;
 }
 
-.card:hover .card-content {
+.single-card:hover .card-content {
     transform: rotateY(0.5turn);
 }
 
@@ -262,6 +262,20 @@ main {
 }
 .card-pages {
     padding-right: 0.5rem;
+}
+
+.delete-confirm-popup {
+    display: none;
+    background-color: #eee;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    position: fixed;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    padding: 6px 8px 8px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 @media (min-width: 1300px) {
