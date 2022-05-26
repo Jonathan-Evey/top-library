@@ -69,26 +69,26 @@
         <h2 class="form-title">Book Details</h2>
         <form class="form" method="dialog">
             <label>What is the Title
-                <input type="text">
+                <input type="text" id="book-title">
             </label>
             <label>Who is the Author
-                <input type="text">
+                <input type="text" id="book-author">
             </label>
             <label for="">How many pages
-                <input type="text">
+                <input type="text" id="book-pages">
             </label>
             <div class="checkbox-container">
                 <label for="">Read
-                    <input type="checkbox" name="" id="">
+                    <input type="radio" name="read-unread" id="book-read">
                 </label>
                 <label for="">Unread
-                    <input type="checkbox" name="" id="">
+                    <input type="radio" name="read-unread" id="book-unread" checked>
                 </label>
             </div>
             <label for="">How would you rate the book?
-                <input type="number" name="" id="">
+                <input type="number" name="" id="book-rating">
             </label>
-            <input type="submit" value="submit">
+            <input type="submit" value="submit" id="submit-book-btn">
         </form>
     </div>
 </dialog>
