@@ -22,8 +22,7 @@ function addBookToLibrary() {
         let book = new ReadBook(
             document.getElementById("book-title").value, 
             document.getElementById("book-author").value, 
-            document.getElementById("book-pages").value,
-            document.getElementById('book-rating').value
+            document.getElementById("book-pages").value
         );
         myLibrary.push(book);
         console.log(myLibrary);
@@ -34,9 +33,36 @@ function addBookToLibrary() {
             document.getElementById("book-author").value, 
             document.getElementById("book-pages").value,
         );
+        makesNewUnreadHTMLBook(book);
         myLibrary.push(book);
-        console.log(myLibrary);
     }
+}
+
+const cardContainer = document.getElementById('card-container');
+function makesNewUnreadHTMLBook(book) {
+    cardContainer.insertAdjacentHTML("afterbegin",
+        `<div class="single-card" id="single-card">
+            <div class="card-content">
+                <div class="card-front read">
+                    <p class="card-title">${book.title}</p>
+                    <p class="card-book-by">by</p>
+                    <p class="card-author">${book.author}</p>
+                </div>
+                <div class="card-back read">
+                    <div class="card-back-top-container">
+                        <button class="btn remove-book-btn" id="remove-book-btn">X</button>
+                        <button class="btn read-unread-btn">
+                            <p class="card-read-unread read">Read</p>
+                            <p class="card-read-unread unread hidden">Unread</p>
+                        </button>
+                    </div>
+                    <div class="card-pages-container">
+                        <p class="card-pages">Pages:</p>
+                        <p class="page-count">${book.pages}</p>
+                    </div>
+                </div>
+            </div>
+        </div>`)
 }
 
 const closeAddBook = document.getElementById('close-add-book-popup-btn');
@@ -49,20 +75,24 @@ function closeAddBookPopup() {
 /*-----------------------------------
 ---------   Remove Book    ----------
 -----------------------------------*/
-const removeBookBtn = document.getElementById('remove-book-btn');
+function deleteBookclickEvent() {
+    cardContainer.addEventListener('click', (e) => {
+        deleteBook(e.target);
+    })
+}
 
-function getParentElement(removeBookBtn) {
-    divToDelete = removeBookBtn.closest('#single-card');
-    divToDelete.remove();
+function deleteBook(element) {
+    if (element.classList.contains('remove-book-btn')) {
+        confirmDelete(element);
+    }
 }
 
 const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
 const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
-
-function confirmDelete(removeBookBtn) {
+function confirmDelete(element) {
     document.getElementById('delete-confirm-popup').style.display="block";
     confirmDeleteBtn.onclick = () => {
-        getParentElement(removeBookBtn);
+        getParentElement(element);
         document.getElementById('delete-confirm-popup').style.display="none";
         return;
     }
@@ -72,10 +102,9 @@ function confirmDelete(removeBookBtn) {
     }
 }
 
-function deleteBookBtnEvent() {
-    removeBookBtn.addEventListener('click', () => {
-        confirmDelete(removeBookBtn);
-    })
+function getParentElement(element) {
+    divToDelete = element.closest('#single-card');
+    divToDelete.remove();
 }
 
 
@@ -89,14 +118,13 @@ function UnreadBook(title, author, pages) {
     }
 }
 
-function ReadBook(title, author, pages, rating) {
+function ReadBook(title, author, pages) {
     this.title = title
     this.author = author
     this.pages = pages
     this.read = "Read"
-    this.rating = rating
     this.info = function() {
-        return `"${title} by ${author}, ${pages} pages, ${rating}"`
+        return `"${title} by ${author}, ${pages} pages"`
     }
 }
 
@@ -106,6 +134,6 @@ console.log(theHobbit.info());
 
 
 closeAddBookPopup();
-deleteBookBtnEvent();
+deleteBookclickEvent();
 addBook();
 checkForSubmitBtn();

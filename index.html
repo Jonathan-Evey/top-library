@@ -26,7 +26,7 @@
 
 <main>
 
-    <div class="card-container">
+    <div class="card-container" id="card-container">
         <div class="single-card" id="single-card">
             <div class="card-content">
                 <div class="card-front read">
@@ -41,7 +41,6 @@
                             <p class="card-read-unread read">Read</p>
                             <p class="card-read-unread unread hidden">Unread</p>
                         </button>
-                        <p class="card-rating">9 / 10</p>
                     </div>
                     <div class="card-pages-container">
                         <p class="card-pages">Pages:</p>
@@ -85,9 +84,6 @@
                     <input type="radio" name="read-unread" id="book-unread" checked>
                 </label>
             </div>
-            <label for="">How would you rate the book?
-                <input type="number" name="" id="book-rating">
-            </label>
             <input type="submit" value="submit" id="submit-book-btn">
         </form>
     </div>
