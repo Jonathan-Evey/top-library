@@ -2,10 +2,19 @@
 --------Add and Remove Books---------
 -----------------------------------*/
 const addBookBtn = document.getElementById('add-book-btn');
+const addBookPopup = document.getElementById('add-book-popup');
+const closeAddBook = document.getElementById('close-add-book-popup-btn');
 
 function addBook() {
     addBookBtn.addEventListener('click', () => {
-        alert();
+        addBookPopup.showModal();
+    })
+}
+
+function closeAddBookPopup() {
+    closeAddBook.addEventListener('click', () => {
+        console.log("click");
+        addBookPopup.close();
     })
 }
 
@@ -40,5 +49,7 @@ const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', '295', 'read');
 
 console.log(theHobbit.info());
 
+
+closeAddBookPopup();
 deleteBook();
 addBook();
