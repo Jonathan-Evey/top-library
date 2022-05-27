@@ -150,6 +150,18 @@ main {
     transform: rotateY(0.5turn);
 }
 
+.card-front.Read,
+.card-back.Read {
+    background-color: cadetblue;
+    background-size: cover;
+}
+
+.card-front.Unread,
+.card-back.Unread {
+    background-color: brown;
+    background-size: cover;
+}
+
 .card-front,
 .card-back {
     display: flex;
@@ -162,8 +174,6 @@ main {
     padding: 0.5rem;
     backface-visibility: hidden;
     transform-style: preserve-3d;
-    background-color: brown;
-    background-size: cover;
     width: 175px;
     height: 250px;
 }
@@ -177,7 +187,7 @@ main {
     box-shadow: inset 10px 0px rgba(0,0,0, .9);
 }
 
-.card-front.read::after{
+.card-front.Read::after{
     content: "";
     position: absolute;
     bottom: -36px;
@@ -211,7 +221,7 @@ main {
     box-shadow: inset -10px 0px rgba(0,0,0, .9);
 }
 
-.card-back.read::after{
+.card-back.Read::after{
     content: "";
     position: absolute;
     bottom: -36px;
