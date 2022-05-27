@@ -1,4 +1,29 @@
-let myLibrary = [];
+let myLibrary = [
+    {
+        title: "The Hobbit",
+        author: "J.R.R. Tolkien",
+        pages: 295,
+        read: "Read"
+    }
+];
+
+/*-----------------------------------
+--------   Set Book Shelf  ----------
+-----------------------------------*/
+function displayBooks() {
+    let books = myLibrary;
+    books.forEach(book => makesNewBook(book))
+}
+
+/*-----------------------------------
+-------- Clear Book Shelf -----------
+-----------------------------------*/
+
+function clearShelf(cardContainer) {
+    while(cardContainer.firstChild) {
+        cardContainer.removeChild(cardContainer.firstChild);
+    }
+}
 
 /*-----------------------------------
 --------    Add New Books   ---------
@@ -19,41 +44,44 @@ function checkForSubmitBtn() {
 }
 function addBookToLibrary() {
     if (document.getElementById('book-read').checked == true) {
-        let book = new ReadBook(
-            document.getElementById("book-title").value, 
-            document.getElementById("book-author").value, 
-            document.getElementById("book-pages").value
-        );
-        myLibrary.push(book);
-        console.log(myLibrary);
-    }
-    if (document.getElementById('book-unread').checked == true){
-        let book = new UnreadBook(
+        let book = new Book(
             document.getElementById("book-title").value, 
             document.getElementById("book-author").value, 
             document.getElementById("book-pages").value,
+            read = "Read",
         );
-        makesNewUnreadHTMLBook(book);
         myLibrary.push(book);
+        clearShelf(cardContainer);
+        displayBooks();
+    }
+    if (document.getElementById('book-unread').checked == true){
+        let book = new Book(
+            document.getElementById("book-title").value, 
+            document.getElementById("book-author").value, 
+            document.getElementById("book-pages").value,
+            read = "Unread",
+        );
+        myLibrary.push(book);
+        clearShelf(cardContainer);
+        displayBooks();
     }
 }
 
 const cardContainer = document.getElementById('card-container');
-function makesNewUnreadHTMLBook(book) {
+function makesNewBook(book) {
     cardContainer.insertAdjacentHTML("afterbegin",
         `<div class="single-card" id="single-card">
-            <div class="card-content">
-                <div class="card-front read">
-                    <p class="card-title">${book.title}</p>
+            <div class="card-content" id="card-content">
+                <div class="card-front ${book.read}" id="card-front">
+                    <p class="card-title" id="card-title">${book.title}</p>
                     <p class="card-book-by">by</p>
                     <p class="card-author">${book.author}</p>
                 </div>
-                <div class="card-back read">
+                <div class="card-back ${book.read}">
                     <div class="card-back-top-container">
                         <button class="btn remove-book-btn" id="remove-book-btn">X</button>
                         <button class="btn read-unread-btn">
-                            <p class="card-read-unread read">Read</p>
-                            <p class="card-read-unread unread hidden">Unread</p>
+                            <p class="card-read-unread ${book.read}" id="card-read-unread">${book.read}</p>
                         </button>
                     </div>
                     <div class="card-pages-container">
@@ -73,26 +101,83 @@ function closeAddBookPopup() {
 }
 
 /*-----------------------------------
----------   Remove Book    ----------
+-------- Book Click Events ----------
 -----------------------------------*/
-function deleteBookclickEvent() {
+function bookClickListener() {
     cardContainer.addEventListener('click', (e) => {
-        deleteBook(e.target);
+        clickBookEvent(e.target);
     })
 }
 
-function deleteBook(element) {
+function clickBookEvent(element) {
     if (element.classList.contains('remove-book-btn')) {
         confirmDelete(element);
     }
+    if (element.classList.contains('Unread')) {
+        let closestParent = element.closest('#card-content');
+        let bookUnreadStyles = closestParent.querySelectorAll('.Unread');
+        updateToRead(bookUnreadStyles);
+        updateReadStatus(element);
+        return;
+    }
+    if (element.classList.contains('Read')) {
+        let closestParent = element.closest('#card-content');
+        let bookReadStyles = closestParent.querySelectorAll('.Read');
+        updateToUnread(bookReadStyles);
+        updateReadStatus(element);
+        return;
+    }
+    
 }
+
+function updateToUnread(bookReadStyles) {
+    bookReadStyles.forEach(bookReadStyle => {
+        bookReadStyle.classList.toggle('Unread');
+        bookReadStyle.classList.toggle('Read');
+    })
+}
+
+function updateToRead(bookUnreadStyles) {
+    bookUnreadStyles.forEach(bookUneadStyle => {
+        bookUneadStyle.classList.toggle('Unread');
+        bookUneadStyle.classList.toggle('Read');
+    })
+}
+
+function updateReadStatus(element) {
+    if (element.classList.contains('Unread')) {
+        element.innerText = "Unread";
+    }
+    if (element.classList.contains('Read')) {
+        element.innerText = "Read";
+    }
+}
+
+/*-----------------------------------
+---------   Remove Book    ----------
+-----------------------------------*/
+function removeBook(element) {
+    let closestParent = element.closest('#card-content');
+    let bookTitleElemet = closestParent.querySelector('#card-title');
+    let bookToDelete = bookTitleElemet.textContent;
+    let books = myLibrary;
+    books.forEach((book, index) => {
+        if(book.title === bookToDelete) {
+            books.splice(index, 1);
+        }
+        console.log(myLibrary);
+    })
+    
+}
+
 
 const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
 const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
 function confirmDelete(element) {
     document.getElementById('delete-confirm-popup').style.display="block";
     confirmDeleteBtn.onclick = () => {
-        getParentElement(element);
+        removeBook(element);
+        deleteParentElement(element);
         document.getElementById('delete-confirm-popup').style.display="none";
         return;
     }
@@ -102,38 +187,21 @@ function confirmDelete(element) {
     }
 }
 
-function getParentElement(element) {
+function deleteParentElement(element) {
     divToDelete = element.closest('#single-card');
     divToDelete.remove();
 }
 
-
-function UnreadBook(title, author, pages) {
+function Book(title, author, pages, read) {
     this.title = title
     this.author = author
     this.pages = pages
-    this.read = "Unread"
-    this.info = function() {
-        return `"${title} by ${author}, ${pages} pages, ${read}"`
-    }
+    this.read = read
 }
-
-function ReadBook(title, author, pages) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = "Read"
-    this.info = function() {
-        return `"${title} by ${author}, ${pages} pages"`
-    }
-}
-
-const theHobbit = new ReadBook('The Hobbit', 'J.R.R. Tolkien', '295', '9');
-
-console.log(theHobbit.info());
 
 
 closeAddBookPopup();
-deleteBookclickEvent();
+bookClickListener();
 addBook();
 checkForSubmitBtn();
+document.addEventListener('DOMContentLoaded', displayBooks());
