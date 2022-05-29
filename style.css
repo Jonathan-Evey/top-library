@@ -45,17 +45,16 @@ body {
 }
 
 /*------------------------------
---------  Popup Window  --------
+-----Add Book Popup Window------
 ------------------------------*/
-
-.add-book-popup {
+dialog {
     margin: auto;
     background-color: darkgray;
     border: none;
     border-radius: 10px;
 }
 
-.add-book-popup::backdrop {
+dialog::backdrop {
     background: rgba(0, 0, 0, 0.75);
 }
 
@@ -73,6 +72,14 @@ body {
     border: none;
     background-color: transparent;
     align-self: flex-end;
+}
+/*------------------------------
+-----Add Book Popup Window------
+------------------------------*/
+.confirm-delete-popup {
+    position: fixed;
+    border-radius: 5px;
+    border: 1px solid #aaa;
 }
 
 .form-title {
@@ -124,11 +131,12 @@ header {
 
 main {
     display: grid;
-    place-items: center;
 }
 
 .card-container {
     display: grid;
+    grid-template-columns: repeat(auto-fill, 175px);
+    gap: 25px;
     padding: 25px;
 }
 
@@ -200,17 +208,17 @@ main {
 }
 
 .card-title {
-    transform: translateZ(1.5rem)
+    transform: translateZ(1rem)
 }
 
 .card-book-by,
 .card-author {
-    transform: translateZ(1rem);
+    transform: translateZ(.75rem);
 }
 
 .card-back-top-container,
 .card-pages-container {
-    transform: translateZ(1rem);
+    transform: translateZ(.5rem);
 }
 
 .card-back {
@@ -272,20 +280,6 @@ main {
 }
 .card-pages {
     padding-right: 0.5rem;
-}
-
-.delete-confirm-popup {
-    display: none;
-    background-color: #eee;
-    border-radius: 5px;
-    border: 1px solid #aaa;
-    position: fixed;
-    width: 300px;
-    left: 50%;
-    margin-left: -150px;
-    padding: 6px 8px 8px;
-    box-sizing: border-box;
-    text-align: center;
 }
 
 @media (min-width: 1300px) {
