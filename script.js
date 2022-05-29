@@ -119,7 +119,6 @@ function clickBookEvent(element) {
     }
     if (element.classList.contains('read-unread-btn')) {
         if (element.classList.contains('Unread')) {
-            console.log(element);
             let closestParent = element.closest('#card-content');
             let bookUnreadStyles = closestParent.querySelectorAll('.Unread');
             updateToRead(bookUnreadStyles);
@@ -127,7 +126,6 @@ function clickBookEvent(element) {
             return;
         }
         if (element.classList.contains('Read')) {
-            console.log(element);
             let closestParent = element.closest('#card-content');
             let bookReadStyles = closestParent.querySelectorAll('.Read');
             updateToUnread(bookReadStyles);
