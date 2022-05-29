@@ -1,5 +1,6 @@
 :root {
     --clr-book-main: rgb(11, 139, 191);
+    --clr-background: rgb(225, 225, 225);
     --clr-book-text: rgb(0, 0, 0);
     --clr-book-accent: rgba(0, 0, 0, 0.9);
     /*--unread--*/
@@ -32,7 +33,7 @@
 ------------------------------*/
 body {
     font-family: 'PT Serif', serif;
-    background-color: rgb(225, 225, 225);
+    background-color: var(--clr-background);
 }
 
 header {
@@ -84,7 +85,7 @@ header {
 dialog {
     margin: auto;
     padding: .5rem;
-    background-color: darkgray;
+    background-color: var(--clr-background);
     border: none;
     border-radius: 10px;
 }
@@ -122,14 +123,33 @@ input {
     width: 60%;
     padding: 0.5rem 0;
     justify-self: center;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 2px 4px 5px -3px rgba(0, 0, 0, 0.25),
-                2px 4px 5px rgba(0, 0, 0, 0.30);;
 }
 
-.submit-book-btn:hover {
+.submit-book-btn,
+.confirm-delete-btn,
+.cancel-delete-btn {
+    border: none;
+    border-radius: 5px;
+    background-color: var(--clr-book-main);
+    box-shadow: 2px 4px 5px -3px rgba(0, 0, 0, 0.25),
+                2px 4px 5px rgba(0, 0, 0, 0.30);
+}
+
+.submit-book-btn:hover,
+.confirm-delete-btn:hover,
+.cancel-delete-btn:hover {
     cursor: pointer;
+    background-color: var(--clr-book-unread-main);
+    color: var(--clr-book-main);
+}
+
+.submit-book-btn:active,
+.confirm-delete-btn:active,
+.cancel-delete-btn:active {
+    transform: translateX(2px);
+    transform: translatey(2px);
+    box-shadow: 1px 2px 3px -3px rgba(0, 0, 0, 0.25),
+                1px 2px 3px rgba(0, 0, 0, 0.30);
 }
 
 .checkbox-container,
@@ -163,14 +183,25 @@ input {
     position: fixed;
     padding: 1rem;
     border-radius: 5px;
-    border: 1px solid #aaa;
+}
+.confirm-delete-popup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .confirm-delete-popup p{
     padding-bottom: 1rem;
 }
 .confirm-delete-btn-container {
     display: flex;
+    width: 75%;
     justify-content: space-evenly;
+}
+
+.confirm-delete-btn,
+.cancel-delete-btn {
+    width: 100px;
+    padding: .25rem 0;
 }
 
 /*------------------------------
