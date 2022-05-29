@@ -1,11 +1,13 @@
 /*------------------------------
 --------   JS Classes   --------
 ------------------------------*/
-
 .hidden {
     display: none;
 }
 
+/*------------------------------
+-------- Reset Classes  --------
+------------------------------*/
 
 *,
 *::before,
@@ -15,6 +17,9 @@
     box-sizing: border-box;
 }
 
+/*------------------------------
+------ Font Set Classes  -------
+------------------------------*/
 body {
     font-family: 'PT Serif', serif;
     background-color: rgb(225, 225, 225);
@@ -37,6 +42,10 @@ body {
 
 .card-author {
     font-size: 1.1rem;
+}
+
+.remove-book-btn {
+    font-size: 1.2rem;
 }
 
 .read-unread-btn {
@@ -63,25 +72,6 @@ dialog::backdrop {
     display: flex;
     flex-direction: column;
 }
-
-.close-add-book-popup-btn {
-    font-weight: 700;
-    padding-top: .1rem;
-    padding-right: .5rem;
-    flex-grow: 0;
-    border: none;
-    background-color: transparent;
-    align-self: flex-end;
-}
-/*------------------------------
------Add Book Popup Window------
-------------------------------*/
-.confirm-delete-popup {
-    position: fixed;
-    border-radius: 5px;
-    border: 1px solid #aaa;
-}
-
 .form-title {
     text-align: center;
 }
@@ -104,7 +94,28 @@ label {
     display: flex;
     flex-direction: row;
 }
+.close-add-book-popup-btn {
+    font-weight: 700;
+    padding-top: .1rem;
+    padding-right: .5rem;
+    flex-grow: 0;
+    border: none;
+    background-color: transparent;
+    align-self: flex-end;
+}
 
+/*------------------------------
+----Delete Book Popup Window----
+------------------------------*/
+.confirm-delete-popup {
+    position: fixed;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+}
+
+/*------------------------------
+------ Header Main Styles ------
+------------------------------*/
 header {
     font-family: 'Abril Fatface', cursive;
     background-color: rgb(0, 0, 0);
@@ -123,12 +134,22 @@ header {
     align-items: center;
 }
 
+.header-title h1 {
+    margin-right: 2rem;
+}
+
+.add-book-btn-container {
+    align-self: flex-end;
+}
+
 .add-book-btn {
-    margin-left: 2rem;
     background-color: transparent;
     color: white;
 }
 
+/*------------------------------
+------ Main Content Styles -----
+------------------------------*/
 main {
     display: grid;
 }
@@ -136,10 +157,15 @@ main {
 .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, 175px);
-    gap: 25px;
+    justify-content: center;
+    column-gap: 25px;
+    row-gap: 40px;
     padding: 25px;
 }
 
+/*------------------------------
+------- Each Book Styles -------
+------------------------------*/
 .single-card {
     width: 175px;
     height: 250px;
@@ -247,11 +273,11 @@ main {
 }
 
 .remove-book-btn {
+    margin-top: -5px;
     padding: .15rem .35rem;
     margin-right: 10px;
     flex-grow: 0;
-    border-radius: 50%;
-    border: 1px solid black;
+    border: none;
     background-color: transparent;
     align-self: flex-end;
 }
@@ -287,13 +313,35 @@ main {
         display: flex;
     }
     header {
+        position: fixed;
         height: 100vh;
         width: 250px;
     }
 
     .header-container {
+        height: 100%;
         flex-direction: column;
         align-items: flex-start;
+        justify-content: space-between;
         padding-left: 3em;
+    }
+    .header-title {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .add-book-btn-container {
+        align-self: flex-start;
+    }
+    .add-book-btn {
+        margin-left: 0;
+    }
+    .header-nav {
+        align-self: center;
+    }
+
+    main {
+        display: grid;
+        width: 100%;
+        margin-left: 250px;
     }
 }
