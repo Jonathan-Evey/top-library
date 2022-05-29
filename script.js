@@ -34,7 +34,7 @@ function clearShelf(cardContainer) {
 /*-----------------------------------
 -------Add New Book to Shelf---------
 -----------------------------------*/
-const addBookBtn = document.getElementById('add-book-btn');
+const addBookBtn = document.getElementById('add-book-btn-container');
 const addBookPopup = document.getElementById('add-book-popup');
 function addBook() {
     addBookBtn.addEventListener('click', () => {
@@ -85,7 +85,7 @@ function makesNewBook(book) {
                 </div>
                 <div class="card-back ${book.read}">
                     <div class="card-back-top-container">
-                        <button class="btn remove-book-btn" id="remove-book-btn">X</button>
+                        <button class="btn remove-book-btn ${book.read}" id="remove-book-btn">x</button>
                         <button class="btn read-unread-btn ${book.read}">${book.read}</button>
                     </div>
                     <div class="card-pages-container">
@@ -162,13 +162,15 @@ function updateReadStatus(element) {
 }
 
 /*-----------------------------------
-----_Confirm Book Removal Event------
+-----Confirm Book Removal Event------
 -----------------------------------*/
+const confirmDeleteBookTitle = document.getElementById('delete-popup-book-title');
 const confirmDeletePopup = document.getElementById('confirm-delete-popup');
 const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
 const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
 function confirmDelete(element) {
     confirmDeletePopup.showModal();
+    showBookTitle(element);
     confirmDeleteBtn.onclick = () => {
         removeBook(element);
         deleteParentElement(element);
@@ -179,6 +181,13 @@ function confirmDelete(element) {
         confirmDeletePopup.close();
         return;
     }
+}
+
+function showBookTitle(element) {
+    let closestParent = element.closest('#card-content');
+    let bookTitleElemet = closestParent.querySelector('#card-title');
+    let bookToDelete = bookTitleElemet.textContent;
+    confirmDeleteBookTitle.innerText = bookToDelete;
 }
 
 /*-----------------------------------
