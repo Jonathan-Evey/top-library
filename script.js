@@ -7,8 +7,15 @@ let myLibrary = [
     }
 ];
 
+function Book(title, author, pages, read) {
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.read = read
+}
+
 /*-----------------------------------
---------   Set Book Shelf  ----------
+--------Generate Book Shelf----------
 -----------------------------------*/
 function displayBooks() {
     let books = myLibrary;
@@ -18,7 +25,6 @@ function displayBooks() {
 /*-----------------------------------
 -------- Clear Book Shelf -----------
 -----------------------------------*/
-
 function clearShelf(cardContainer) {
     while(cardContainer.firstChild) {
         cardContainer.removeChild(cardContainer.firstChild);
@@ -26,7 +32,7 @@ function clearShelf(cardContainer) {
 }
 
 /*-----------------------------------
---------    Add New Books   ---------
+-------Add New Book to Shelf---------
 -----------------------------------*/
 const addBookBtn = document.getElementById('add-book-btn');
 const addBookPopup = document.getElementById('add-book-popup');
@@ -80,9 +86,7 @@ function makesNewBook(book) {
                 <div class="card-back ${book.read}">
                     <div class="card-back-top-container">
                         <button class="btn remove-book-btn" id="remove-book-btn">X</button>
-                        <button class="btn read-unread-btn">
-                            <p class="card-read-unread ${book.read}" id="card-read-unread">${book.read}</p>
-                        </button>
+                        <button class="btn read-unread-btn ${book.read}">${book.read}</button>
                     </div>
                     <div class="card-pages-container">
                         <p class="card-pages">Pages:</p>
@@ -101,7 +105,7 @@ function closeAddBookPopup() {
 }
 
 /*-----------------------------------
--------- Book Click Events ----------
+------- Click on Book Events --------
 -----------------------------------*/
 function bookClickListener() {
     cardContainer.addEventListener('click', (e) => {
@@ -113,34 +117,38 @@ function clickBookEvent(element) {
     if (element.classList.contains('remove-book-btn')) {
         confirmDelete(element);
     }
-    if (element.classList.contains('Unread')) {
-        let closestParent = element.closest('#card-content');
-        let bookUnreadStyles = closestParent.querySelectorAll('.Unread');
-        updateToRead(bookUnreadStyles);
-        updateReadStatus(element);
-        return;
-    }
-    if (element.classList.contains('Read')) {
-        let closestParent = element.closest('#card-content');
-        let bookReadStyles = closestParent.querySelectorAll('.Read');
-        updateToUnread(bookReadStyles);
-        updateReadStatus(element);
-        return;
+    if (element.classList.contains('read-unread-btn')) {
+        if (element.classList.contains('Unread')) {
+            console.log(element);
+            let closestParent = element.closest('#card-content');
+            let bookUnreadStyles = closestParent.querySelectorAll('.Unread');
+            updateToRead(bookUnreadStyles);
+            updateReadStatus(element);
+            return;
+        }
+        if (element.classList.contains('Read')) {
+            console.log(element);
+            let closestParent = element.closest('#card-content');
+            let bookReadStyles = closestParent.querySelectorAll('.Read');
+            updateToUnread(bookReadStyles);
+            updateReadStatus(element);
+            return;
+        }
     }
     
 }
 
 function updateToUnread(bookReadStyles) {
     bookReadStyles.forEach(bookReadStyle => {
-        bookReadStyle.classList.toggle('Unread');
         bookReadStyle.classList.toggle('Read');
+        bookReadStyle.classList.toggle('Unread');
     })
 }
 
 function updateToRead(bookUnreadStyles) {
-    bookUnreadStyles.forEach(bookUneadStyle => {
-        bookUneadStyle.classList.toggle('Unread');
-        bookUneadStyle.classList.toggle('Read');
+    bookUnreadStyles.forEach(bookUnreadStyle => {
+        bookUnreadStyle.classList.toggle('Unread');
+        bookUnreadStyle.classList.toggle('Read');
     })
 }
 
@@ -150,6 +158,26 @@ function updateReadStatus(element) {
     }
     if (element.classList.contains('Read')) {
         element.innerText = "Read";
+    }
+}
+
+/*-----------------------------------
+----_Confirm Book Removal Event------
+-----------------------------------*/
+const confirmDeletePopup = document.getElementById('confirm-delete-popup');
+const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
+function confirmDelete(element) {
+    confirmDeletePopup.showModal();
+    confirmDeleteBtn.onclick = () => {
+        removeBook(element);
+        deleteParentElement(element);
+        confirmDeletePopup.close();
+        return;
+    }
+    cancelDeleteBtn.onclick = () => {
+        confirmDeletePopup.close();
+        return;
     }
 }
 
@@ -169,36 +197,10 @@ function removeBook(element) {
     })
     
 }
-
-
-const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
-const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
-function confirmDelete(element) {
-    document.getElementById('delete-confirm-popup').style.display="block";
-    confirmDeleteBtn.onclick = () => {
-        removeBook(element);
-        deleteParentElement(element);
-        document.getElementById('delete-confirm-popup').style.display="none";
-        return;
-    }
-    cancelDeleteBtn.onclick = () => {
-        document.getElementById('delete-confirm-popup').style.display="none";
-        return;
-    }
-}
-
 function deleteParentElement(element) {
     divToDelete = element.closest('#single-card');
     divToDelete.remove();
 }
-
-function Book(title, author, pages, read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-}
-
 
 closeAddBookPopup();
 bookClickListener();
