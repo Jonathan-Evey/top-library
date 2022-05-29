@@ -16,8 +16,9 @@
     <div class="header-container">
         <div class="header-title">
             <h1>My Library</h1>
-            <div class="add-book-btn-container">
-                <button class="btn add-book-btn" id="add-book-btn">Add Book</button>
+            <div class="add-book-btn-container" id="add-book-btn-container">
+                <p class="add-book-plus">+</p>
+                <button class="btn add-book-btn" id="add-book-btn">Book</button>
             </div>
         </div>
         <nav class="header-nav">
@@ -39,13 +40,16 @@
 </footer>
 
 <dialog class="confirm-delete-popup" id="confirm-delete-popup">
-    <button class="confirm-delete-btn" id="confirm-delete-btn">Yes</button>
-    <button class="cancel-delete-btn" id="cancel-delete-btn">No</button>
+    <p>Are you sure you want to delete <span id="delete-popup-book-title"></span> from your library?</p>
+    <div class="confirm-delete-btn-container">
+        <button class="confirm-delete-btn" id="confirm-delete-btn">Yes</button>
+        <button class="cancel-delete-btn" id="cancel-delete-btn">No</button>
+    </div>
 </dialog>
 
 <dialog class="add-book-popup" id="add-book-popup">
     <div class="add-book-popup-content">
-        <button class="close-add-book-popup-btn" id="close-add-book-popup-btn">X</button>
+        <button class="close-add-book-popup-btn" id="close-add-book-popup-btn">x</button>
         <h2 class="form-title">Book Details</h2>
         <form class="form" method="dialog">
             <label>What is the Title
@@ -65,7 +69,7 @@
                     <input type="radio" name="read-unread" id="book-unread" checked>
                 </label>
             </div>
-            <input type="submit" value="submit" id="submit-book-btn">
+            <input type="submit" value="Add Book" class="submit-book-btn" id="submit-book-btn">
         </form>
     </div>
 </dialog>
