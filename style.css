@@ -279,14 +279,14 @@ main {
     transform: rotateY(0.5turn);
 }
 
-.card-front.Read,
-.card-back.Read {
+.card-front.read,
+.card-back.read {
     background-color: var(--clr-book-main);
     background-size: cover;
 }
 
-.card-front.Unread,
-.card-back.Unread {
+.card-front.unread,
+.card-back.unread {
     background-color: var(--clr-book-unread-main);
     background-size: cover;
     color: var(--clr-book-unread-text);
@@ -319,13 +319,13 @@ main {
                 2px 4px 5px rgba(0, 0, 0, 0.30);
 }
 
-.card-front.Unread {
+.card-front.unread {
     box-shadow: inset 10px 0px var(--clr-book-unread-accent),
     2px 4px 5px -3px rgba(0, 0, 0, 0.25),
     2px 4px 5px rgba(0, 0, 0, 0.30);
 }
 
-.card-front.Read::after{
+.card-front.read::after{
     content: "";
     position: absolute;
     bottom: -36px;
@@ -361,13 +361,13 @@ main {
                 2px 4px 5px rgba(0, 0, 0, 0.30);
 }
 
-.card-back.Unread {
+.card-back.unread {
     box-shadow: inset -10px 0px var(--clr-book-unread-accent),
                 2px 4px 5px -3px rgba(0, 0, 0, 0.25),
                 2px 4px 5px rgba(0, 0, 0, 0.30);
 }
 
-.card-back.Read::after{
+.card-back.read::after{
     content: "";
     position: absolute;
     bottom: -36px;
@@ -394,7 +394,7 @@ main {
     align-self: flex-end;
 }
 
-.remove-book-btn.Unread {
+.remove-book-btn.unread {
     color: var(--clr-book-unread-text);
 }
 
@@ -411,7 +411,7 @@ main {
     padding: .1rem  .75rem;
 }
 
-.read-unread-btn.Unread {
+.read-unread-btn.unread {
     border-color: var(--clr-book-unread-text);
     color: var(--clr-book-unread-text);
 }

@@ -3,7 +3,7 @@ let myLibrary = [
         title: "The Hobbit",
         author: "J.R.R. Tolkien",
         pages: 295,
-        read: "Read",
+        read: "read",
         idNumber: 25
     }
 ];
@@ -70,7 +70,7 @@ function addBookToLibrary() {
             document.getElementById("book-title").value, 
             document.getElementById("book-author").value, 
             document.getElementById("book-pages").value,
-            read = "Read",
+            read = "read",
         );
         myLibrary.push(book);
         clearShelf(cardContainer);
@@ -81,7 +81,7 @@ function addBookToLibrary() {
             document.getElementById("book-title").value, 
             document.getElementById("book-author").value, 
             document.getElementById("book-pages").value,
-            read = "Unread",
+            read = "unread",
         );
         myLibrary.push(book);
         clearShelf(cardContainer);
@@ -92,7 +92,7 @@ function addBookToLibrary() {
 const cardContainer = document.getElementById('card-container');
 function makesNewBook(book) {
     cardContainer.insertAdjacentHTML("afterbegin",
-        `<div class="single-card" id="single-card">
+        `<div class="single-card" id="single-card" data-bookid="${book.idNumber}">
             <div class="card-content" id="card-content">
                 <div class="card-front ${book.read}" id="card-front">
                     <p class="card-title" id="card-title">${book.title}</p>
@@ -102,7 +102,7 @@ function makesNewBook(book) {
                 <div class="card-back ${book.read}">
                     <div class="card-back-top-container">
                         <button class="btn remove-book-btn ${book.read}" id="remove-book-btn">x</button>
-                        <button class="btn read-unread-btn ${book.read}">${book.read}</button>
+                        <button class="btn read-unread-btn ${book.read}" id="read-unread-btn" data-bookid="${book.idNumber}"></button>
                     </div>
                     <div class="card-pages-container">
                         <p class="card-pages">Pages:</p>
@@ -111,6 +111,7 @@ function makesNewBook(book) {
                 </div>
             </div>
         </div>`)
+        setReadUnreadText();
 }
 
 const closeAddBook = document.getElementById('close-add-book-popup-btn');
@@ -134,44 +135,66 @@ function clickBookEvent(element) {
         confirmDelete(element);
     }
     if (element.classList.contains('read-unread-btn')) {
-        if (element.classList.contains('Unread')) {
+        if (element.classList.contains('unread')) {
             let closestParent = element.closest('#card-content');
-            let bookUnreadStyles = closestParent.querySelectorAll('.Unread');
+            let bookUnreadStyles = closestParent.querySelectorAll('.unread');
             updateToRead(bookUnreadStyles);
-            updateReadStatus(element);
+            setReadUnreadText();
+            updateStoredReadStatus(element)
             return;
         }
-        if (element.classList.contains('Read')) {
+        if (element.classList.contains('read')) {
             let closestParent = element.closest('#card-content');
-            let bookReadStyles = closestParent.querySelectorAll('.Read');
+            let bookReadStyles = closestParent.querySelectorAll('.read');
             updateToUnread(bookReadStyles);
-            updateReadStatus(element);
+            setReadUnreadText();
+            updateStoredReadStatus(element)
             return;
         }
     }
     
 }
 
+
+function updateStoredReadStatus(element) {
+    let selectedBook = element.dataset.bookid;
+    console.log(parseInt(selectedBook));
+    myLibrary.forEach(book => {
+        if(book.idNumber == parseInt(selectedBook)) {
+            if (book.read == "read") {
+                book.read = "unread";
+                return;
+            }
+            if (book.read == "unread") {
+                book.read = "read";
+                return;
+            }
+        }
+    })
+}
+
 function updateToUnread(bookReadStyles) {
     bookReadStyles.forEach(bookReadStyle => {
-        bookReadStyle.classList.toggle('Read');
-        bookReadStyle.classList.toggle('Unread');
+        bookReadStyle.classList.toggle('read');
+        bookReadStyle.classList.toggle('unread');
     })
 }
 
 function updateToRead(bookUnreadStyles) {
     bookUnreadStyles.forEach(bookUnreadStyle => {
-        bookUnreadStyle.classList.toggle('Unread');
-        bookUnreadStyle.classList.toggle('Read');
+        bookUnreadStyle.classList.toggle('unread');
+        bookUnreadStyle.classList.toggle('read');
     })
 }
 
-function updateReadStatus(element) {
-    if (element.classList.contains('Unread')) {
-        element.innerText = "Unread";
+
+function setReadUnreadText() {
+    const readUnreadBtn = document.getElementById('read-unread-btn');
+    if (readUnreadBtn.classList.contains('unread')) {
+        readUnreadBtn.innerText = "Unread";
     }
-    if (element.classList.contains('Read')) {
-        element.innerText = "Read";
+    if (readUnreadBtn.classList.contains('read')) {
+        readUnreadBtn.innerText = "Read";
     }
 }
 
@@ -208,17 +231,15 @@ function showBookTitle(element) {
 ---------   Remove Book    ----------
 -----------------------------------*/
 function removeBook(element) {
-    let closestParent = element.closest('#card-content');
-    let bookTitleElemet = closestParent.querySelector('#card-title');
-    let bookToDelete = bookTitleElemet.textContent;
+    let theBookToDelete = element.closest('#single-card');
+    let bookIdToDelete = theBookToDelete.dataset.bookid;
     let books = myLibrary;
-    books.forEach((book, index) => {
-        if(book.title === bookToDelete) {
+    myLibrary.forEach((book, index) => {
+        if(book.idNumber == bookIdToDelete) {
             books.splice(index, 1);
         }
-        console.log(myLibrary);
+        
     })
-    
 }
 function deleteParentElement(element) {
     divToDelete = element.closest('#single-card');
