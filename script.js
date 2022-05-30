@@ -3,7 +3,8 @@ let myLibrary = [
         title: "The Hobbit",
         author: "J.R.R. Tolkien",
         pages: 295,
-        read: "Read"
+        read: "Read",
+        idNumber: 25
     }
 ];
 
@@ -12,7 +13,22 @@ function Book(title, author, pages, read) {
     this.author = author
     this.pages = pages
     this.read = read
+    this.idNumber = assignNewIdNumber();
 }
+
+function assignNewIdNumber() {
+    let books = myLibrary;
+    let currentAssignedIds = [];
+    books.forEach(book => currentAssignedIds.push(book.idNumber))
+    checkNumber = Math.floor(Math.random() * 10000) + 1;
+    if (currentAssignedIds.includes(checkNumber)) {
+        assignNewIdNumber();
+    }
+    if (!currentAssignedIds.includes(checkNumber)) {
+        return checkNumber;
+    }
+}
+
 
 /*-----------------------------------
 --------Generate Book Shelf----------
