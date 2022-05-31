@@ -51,7 +51,8 @@ header {
     font-family: inherit;
 }
 
-.card-title {
+.card-title,
+.card-title-shadow {
     font-size: 1.2rem;
     font-weight: 700;
 }
@@ -61,11 +62,13 @@ header {
     font-weight: 700;
 }
 
-.card-book-by {
+.card-book-by,
+.card-book-by-shadow {
     font-size: .75rem;
 }
 
 .card-author,
+.card-author-shadow,
 .submit-book-btn {
     font-size: 1.1rem;
 }
@@ -311,6 +314,7 @@ main {
 .card-front {
     padding-top: 2rem;
     padding-bottom: 1.5rem;
+    padding-left: 1rem;
     justify-content: flex-start;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -337,13 +341,30 @@ main {
     border-width: 18px 10px;
 }
 
-.card-title {
-    transform: translateZ(1rem)
+.card-title-container,
+.card-book-by-container,
+.card-author-container {
+    margin: 0 auto;
+    max-width: 150px;
+    width: fit-content;
+    position: relative;
+    transform-style: preserve-3d;
 }
 
+.card-title,
 .card-book-by,
 .card-author {
+    max-width: 150px;
     transform: translateZ(.75rem);
+}
+
+.card-title-shadow,
+.card-book-by-shadow,
+.card-author-shadow {
+    color: transparent;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0px 0px 0px  rgba(0, 0, 0, 0.3);
 }
 
 .card-back-top-container,

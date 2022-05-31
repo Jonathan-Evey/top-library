@@ -95,9 +95,18 @@ function makesNewBook(book) {
         `<div class="single-card" id="single-card" data-bookid="${book.idNumber}">
             <div class="card-content" id="card-content">
                 <div class="card-front ${book.read}" id="card-front">
-                    <p class="card-title" id="card-title">${book.title}</p>
-                    <p class="card-book-by">by</p>
-                    <p class="card-author">${book.author}</p>
+                    <div class="card-title-container">
+                        <p class="card-title-shadow">${book.title}</p>
+                        <p class="card-title" id="card-title">${book.title}</p>
+                    </div>
+                    <div class="card-book-by-container">
+                        <p class="card-book-by-shadow">by</p>
+                        <p class="card-book-by">by</p>
+                    </div>
+                    <div class="card-author-container">
+                        <p class="card-author-shadow">${book.author}</p>
+                        <p class="card-author">${book.author}</p>
+                    </div>
                 </div>
                 <div class="card-back ${book.read}">
                     <div class="card-back-top-container">
