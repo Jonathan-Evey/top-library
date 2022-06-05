@@ -14,15 +14,16 @@ function Book(title, author, pages, read) {
     this.pages = pages
     this.read = read
     this.idNumber = assignNewIdNumber();
+    console.log(this.idNumber)
 }
 
 function assignNewIdNumber() {
     let books = myLibrary;
     let currentAssignedIds = [];
     books.forEach(book => currentAssignedIds.push(book.idNumber))
-    checkNumber = Math.floor(Math.random() * 10000) + 1;
+    let checkNumber = Math.floor(Math.random() * 4) + 1;
     if (currentAssignedIds.includes(checkNumber)) {
-        assignNewIdNumber();
+        return assignNewIdNumber();
     }
     if (!currentAssignedIds.includes(checkNumber)) {
         return checkNumber;
@@ -241,14 +242,18 @@ function showBookTitle(element) {
 -----------------------------------*/
 function removeBook(element) {
     let theBookToDelete = element.closest('#single-card');
-    let bookIdToDelete = theBookToDelete.dataset.bookid;
-    let books = myLibrary;
+    let bookIdToDelete = parseInt(theBookToDelete.dataset.bookid);
+    console.log({bookIdToDelete})
+    const updatedMyLibrary = myLibrary.filter(book => book.idNumber !== bookIdToDelete)
+    myLibrary = updatedMyLibrary
+
+/*--------do not update in a loop--------
     myLibrary.forEach((book, index) => {
-        if(book.idNumber == bookIdToDelete) {
+        if(checkNumber == bookIdToDelete) {
             books.splice(index, 1);
         }
-        
-    })
+    })*/
+    
 }
 function deleteParentElement(element) {
     divToDelete = element.closest('#single-card');
