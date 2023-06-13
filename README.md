@@ -1,6 +1,8 @@
 # top-library
 Library project from The Odin Project
 
+HTML / CSS / JavaScript
+
 https://jonathan-evey.github.io/top-library/
 
 Completed all tasks to meet the assignment requirements.
